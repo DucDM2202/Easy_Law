@@ -6,12 +6,14 @@ import os
 
 
 def load_docx(file_path) -> List[Document]:
+    """Load documents from file .docx"""
     loader = Docx2txtLoader(file_path)
     documents = loader.load()
     return documents
 
 
 def split_law_text(text: str) -> List[str]:
+    """Chia tài liệu thành các documents theo điều. Mỗi document là một điều"""
     chuongs = text.split("\n\nChương")
     chuongs = chuongs[1:]
     results = []
@@ -41,6 +43,18 @@ def split_law_text(text: str) -> List[str]:
     print(f"Splited to {len(results)} chunks")
     return results
 
+def split_law_text_by_dieu(text: str, link: str) -> List[Document]:
+    dieus = text.split("\n\nĐiều")
+    metadata = dieus[0].strip()
+    dieus = dieus[1:]
+    result = []
+    for dieu in dieus:
+        dieu = dieu.strip()
+        result.append(
+            Document(page_content="Điều " + dieu, metadata={"source": metadata, "link": link})
+        )
+    return result
+
 
 def convert_2_document(chunks: List[str], source: str) -> List[Document]:
     documents = []
@@ -63,6 +77,17 @@ def load_data(file_path: str) -> List[Document]:
     return documents
 
 
+def prepare_data(file_path: str, source: str) -> List[Document]:
+    document = load_docx(file_path)
+    print(f"Loaded data from {file_path}")
+    splits = split_law_text(document[0].page_content)
+    documents = convert_2_document(
+        splits,
+        source=source,
+    )
+    return documents
+
+
 def prepare(file_path: str, source: str, file_destination_path: str):
     document = load_docx(file_path)
     print(f"Loaded data from {file_path}")
@@ -75,11 +100,12 @@ def prepare(file_path: str, source: str, file_destination_path: str):
     print(f"Saved to {file_destination_path}")
 
 
+
 if __name__ == "__main__":
-    prepare(
-        file_path="/home/quangster/Workspace/Easy_Law/rag/data/Luật-42-2024-QH15.docx",
-        source="https://luatvietnam.vn/lao-dong/bo-luat-lao-dong-2019-179015-d1.html",
-        file_destination_path="./data/LuatDatDai2013.pkl",
+    document = load_docx("./data/dan_su/91-2015-QH13.docx")
+    documents = split_law_text_by_dieu(
+        document[0].page_content,
+        link="https://luatvietnam.vn/dan-su/bo-luat-dan-su-2015-moi-nhat-so-91-2015-qh13-101333-d1.html",
     )
-    documents = load_data("./data/LuatDatDai2013.pkl")
-    print(documents[1].page_content)
+    save_2_pickle(documents, "./datapickle/dan_su/91-2015-QH13.pkl")
+    print(documents[0])
