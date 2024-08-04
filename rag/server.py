@@ -57,10 +57,10 @@ async def rag_route(question: Question):
     return {"answer": advancerag.answer(question.question)}
 
 
-@app.post("/v3/rag")
-async def rag_route(question: Question):
-    print(question)
-    return {"answer": mutliqueryRag.answer(question.question)}
+# @app.post("/v3/rag")
+# async def rag_route(question: Question):
+#     print(question)
+#     return {"answer": mutliqueryRag.answer(question.question)}
 
 
 if __name__ == "__main__":
