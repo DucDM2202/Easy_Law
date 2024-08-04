@@ -1,0 +1,8 @@
+/* CSS to control the image size */
+img {
+    width: 30px;  /* Set the width of the image */
+    height: auto;  /* Set the height to auto to maintain aspect ratio */
+    max-width: 100%;  /* Ensure the image doesn't exceed the container's width */
+    margin-bottom: -8px;
+    margin-right: 10px;
+}

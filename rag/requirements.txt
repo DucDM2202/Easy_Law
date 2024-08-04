@@ -1,0 +1,17 @@
+# 3.10.14
+# pytorch https://pytorch.org/get-started/locally/
+python-dotenv==1.0.1
+gdown==5.2.0
+pyngrok==7.2.0
+nest_asyncio==1.6.0
+fastapi==0.112.0
+uvicorn==0.30.5
+langchain==0.2.12
+langchain-community==0.2.11
+docx2txt==0.8
+langchain-google-genai==1.0.8
+langchain-openai==0.1.20
+langchain-huggingface==0.0.3
+faiss-cpu
+accelerate
+# faiss-gpu 
