@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 
-from chain import BasicRAG, AdvanceRAG
+from chain import BasicRAG, AdvanceRoutingRAG, AdvanceMultiQueryRAG
 from retriever import get_retriever
 from config import MULTI_VECTOR_DB
 
@@ -24,8 +24,9 @@ for e in list(MULTI_VECTOR_DB.values()):
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
 gpt_llm = ChatOpenAI(temperature=0)
 
-basicrag = BasicRAG(retrievers["test"], llm)
-advancerag = AdvanceRAG(retrievers, gpt_llm)
+basicrag = BasicRAG(retrievers["dan_su"], gpt_llm)
+advancerag = AdvanceRoutingRAG(retrievers, gpt_llm)
+mutliqueryRag = AdvanceMultiQueryRAG(retrievers, gpt_llm)
 
 
 # Add CORS middleware
@@ -54,6 +55,12 @@ async def rag_route(question: Question):
 async def rag_route(question: Question):
     print(question)
     return {"answer": advancerag.answer(question.question)}
+
+
+@app.post("/v3/rag")
+async def rag_route(question: Question):
+    print(question)
+    return {"answer": mutliqueryRag.answer(question.question)}
 
 
 if __name__ == "__main__":

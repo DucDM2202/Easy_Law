@@ -88,24 +88,74 @@ def prepare_data(file_path: str, source: str) -> List[Document]:
     return documents
 
 
-def prepare(file_path: str, source: str, file_destination_path: str):
+def prepare(file_path: str, link: str, file_destination_path: str):
     document = load_docx(file_path)
     print(f"Loaded data from {file_path}")
-    splits = split_law_text(document[0].page_content)
-    documents = convert_2_document(
-        splits,
-        source=source,
+    documents = split_law_text_by_dieu(
+        document[0].page_content,
+        link=link,
     )
+    print(f"Split ino {len(documents)} chunks")
     save_2_pickle(documents, file_path=file_destination_path)
     print(f"Saved to {file_destination_path}")
 
-
+def prepare_all():
+    # dan su
+    prepare(
+        "./data/dan_su/91-2015-QH13.docx",
+        "https://luatvietnam.vn/dan-su/bo-luat-dan-su-2015-moi-nhat-so-91-2015-qh13-101333-d1.html",
+        "./datapickle/dan_su/91-2015-QH13.pkl",
+    )
+    # dat dai
+    prepare(
+        "./data/dat_dai/45_2013_QH13.docx",
+        "https://luatvietnam.vn/dat-dai/luat-dat-dai-cua-quoc-hoi-so-45-2013-qh13-83386-d1.html",
+        "./datapickle/dat_dai/45_2013_QH13.pkl",
+    )
+    # hien phap
+    prepare(
+        "./data/hien_phap/HienPhap2013.docx",
+        "https://luatvietnam.vn/tu-phap/hien-phap-18-2013-l-ctn-quoc-hoi-83320-d1.html",
+        "./datapickle/hien_phap/HienPhap2013.pkl",
+    )
+    # tai chinh
+    prepare(
+        "./data/tai_chinh/46-2010-QH12.docx",
+        "https://luatvietnam.vn/tai-chinh/luat-ngan-hang-nha-nuoc-2010-53469-d1.html",
+        "./datapickle/tai_chinh/46-2010-QH12.pkl",
+    )
+    prepare(
+        "./data/tai_chinh/61_2020_QH14.docx",
+        "https://luatvietnam.vn/dau-tu/luat-dau-tu-2020-186270-d1.html",
+        "./datapickle/tai_chinh/61_2020_QH14.pkl",
+    )
+    prepare(
+        "./data/tai_chinh/88_2015_QH13.docx",
+        "https://luatvietnam.vn/ke-toan/luat-ke-toan-2015-101336-d1.html",
+        "./datapickle/tai_chinh/88_2015_QH13.pkl",
+    )
+    prepare(
+        "./data/tai_chinh/97_2015_QH13.docx",
+        "https://luatvietnam.vn/thue/luat-phi-va-le-phi-2015-101327-d1.html",
+        "./datapickle/tai_chinh/97_2015_QH13.pkl",
+    )
+    # lao dong
+    prepare(
+        "./data/lao_dong/45-2019-QH14.docx",
+        "https://luatvietnam.vn/lao-dong/bo-luat-lao-dong-2019-179015-d1.html",
+        "./datapickle/lao_dong/45-2019-QH14.pkl",
+    )
+    prepare(
+        "./data/lao_dong/69-2020-QH14.docx",
+        "https://luatvietnam.vn/lao-dong/luat-nguoi-lao-dong-viet-nam-di-lam-viec-o-nuoc-ngoai-theo-hop-dong-2020-195185-d1.html",
+        "./datapickle/lao_dong/69-2020-QH14.pkl",
+    )
+    # hon nhan gia dinh
+    prepare(
+        "./data/hon_nhan_gia_dinh/52-2014-QH13.docx",
+        "https://luatvietnam.vn/hon-nhan-gia-dinh/luat-hon-nhan-va-gia-dinh-2014-87930-d1.html",
+        "./datapickle/hon_nhan_gia_dinh/52-2014-QH13.pkl",
+    )
 
 if __name__ == "__main__":
-    document = load_docx("./data/dan_su/91-2015-QH13.docx")
-    documents = split_law_text_by_dieu(
-        document[0].page_content,
-        link="https://luatvietnam.vn/dan-su/bo-luat-dan-su-2015-moi-nhat-so-91-2015-qh13-101333-d1.html",
-    )
-    save_2_pickle(documents, "./datapickle/dan_su/91-2015-QH13.pkl")
-    print(documents[0])
+    prepare_all()
