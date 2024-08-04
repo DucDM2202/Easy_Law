@@ -13,4 +13,5 @@ langchain-google-genai==1.0.8
 langchain-openai==0.1.20
 langchain-huggingface==0.0.3
 faiss-cpu
+accelerate
 # faiss-gpu 

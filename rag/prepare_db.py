@@ -53,7 +53,7 @@ def prepare_multi_db(embedding: Embeddings):
 
 if __name__ == "__main__":
     embedding = get_huggingface_embedding()
-    # documents = load_data("./datapickle/dan_su/91-2015-QH13.pkl")
-    # print(documents[0])
-    # save_vector_db(documents, embedding, path="./faiss/dan_su")
-    prepare_multi_db(embedding)
+    documents = load_data("./datapickle/hinh_su/100-2015-QH13.pkl")
+    print(documents[0])
+    save_vector_db(documents, embedding, path="./faiss/hinh_su")
+    # prepare_multi_db(embedding)

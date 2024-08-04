@@ -34,4 +34,4 @@ def download_data():
 if __name__ == "__main__":
     copy_env()
     install_requirements()
-    download_data()
+    # download_data()
