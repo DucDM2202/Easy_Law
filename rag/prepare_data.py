@@ -156,6 +156,18 @@ def prepare_all():
         "https://luatvietnam.vn/hon-nhan-gia-dinh/luat-hon-nhan-va-gia-dinh-2014-87930-d1.html",
         "./datapickle/hon_nhan_gia_dinh/52-2014-QH13.pkl",
     )
+    # hinh su
+    prepare(
+        "./data/hinh_su/41_2019_QH14_387991.docx",
+        "https://luatvietnam.vn/hinh-su/luat-thi-hanh-an-hinh-su-2019-175008-d1.html",
+        "./datapickle/hinh_su/41_2019_QH14_387991.pkl",
+    )
 
 if __name__ == "__main__":
     prepare_all()
+
+    # prepare(
+    #     "./data/dan_su/91-2015-QH13.docx",
+    #     "https://luatvietnam.vn/dan-su/bo-luat-dan-su-2015-moi-nhat-so-91-2015-qh13-101333-d1.html",
+    #     "./datapickle/dan_su/91-2015-QH13.pkl",
+    # )

@@ -21,7 +21,7 @@ embedding = HuggingFaceEmbeddings(model_name=os.environ["EMBEDDING_MODEL_NAME"])
 retrievers = {}
 for e in list(MULTI_VECTOR_DB.values()):
     retrievers[e] = get_retriever(source=e, embedding=embedding)
-llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0)
 gpt_llm = ChatOpenAI(temperature=0)
 
 basicrag = BasicRAG(retrievers["dan_su"], gpt_llm)
